@@ -1,0 +1,21 @@
+.question h2{
+    margin-bottom: 0.83em;
+}
+
+.question ul {
+    list-style: none;
+    padding: 0;
+}
+
+.question li {
+    padding: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.question li:hover {
+    border: 2px solid rgba(0, 0, 0, 0.3);
+}
