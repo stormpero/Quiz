@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Autocomplete, TextField, CircularProgress } from "@mui/material";
-import { getCategoryList } from "api";
+import { getCategoryList } from "utils/api";
 import { converApiCategories } from "utils/apiConvert";
 
 export const CategorySelect = ({ setCategoryId }) => {

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Variant } from "./Variant";
 import {
     Box,
     List,
@@ -10,7 +9,6 @@ import {
 } from "@mui/material";
 
 export const Question = ({ title, variants = [], onClickVariant }) => {
-    console.log(title);
     return (
         <Box
             sx={{
@@ -25,7 +23,6 @@ export const Question = ({ title, variants = [], onClickVariant }) => {
                     <ListItemButton
                         key={q}
                         onClick={() => onClickVariant(index)}
-                        variant={q}
                     >
                         <ListItemText primary={q} />
                     </ListItemButton>
@@ -38,5 +35,5 @@ export const Question = ({ title, variants = [], onClickVariant }) => {
 Question.propTypes = {
     title: PropTypes.string.isRequired,
     variants: PropTypes.array.isRequired,
-    onClickVariant: PropTypes.func.isRequired,
+    onClickVariant: PropTypes.func,
 };

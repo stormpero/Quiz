@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { Box, Button, TextField } from "@mui/material";
@@ -20,8 +20,7 @@ const quiz_difficulty = [
     },
 ];
 
-// eslint-disable-next-line react/display-name
-export const Start = memo(({ onClickStart }) => {
+export const Start = ({ onClickStart }) => {
     const [categoryId, setCategoryId] = useState(null);
     const [difficulty, setDifficulty] = useState("easy");
     const [questionsNumber, setQuestionsNumber] = useState(5);
@@ -39,16 +38,9 @@ export const Start = memo(({ onClickStart }) => {
     };
 
     return (
-        <Box
-            sx={{
-                marginTop: "20px",
-                backgroundColor: "#fff",
-                padding: "30px",
-                borderRadius: "20px",
-            }}
-        >
+        <Box>
             <Stack direction="row" spacing={2}>
-            <TextField
+                <TextField
                     select
                     label="Difficulty"
                     SelectProps={{
@@ -96,11 +88,8 @@ export const Start = memo(({ onClickStart }) => {
             </Button>
         </Box>
     );
-});
+};
 
 Start.propTypes = {
     onClickStart: PropTypes.func,
 };
-function onClickStart(questionsNumber, categoryId, difficulty) {
-    throw new Error("Function not implemented.");
-}

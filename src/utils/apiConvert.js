@@ -8,32 +8,39 @@ const insert = (arr, index, newItem) => [
 ];
 
 const escapeHtml = (text) => {
-    return text
-        .replace(/&amp;|&#038;/g, "&")
-        .replace(/&quot;|&#034;/g, '"')
-        .replace(/&apos;|&#039;/g, "'")
-        .replace(/&lt;|&#060;/g, "<")
-        .replace(/&gt;|&#062;/g, ">")
-        .replace(/&nbsp;|&#160;/g, " ")
-        .replace(/&rsquo;|&#8217;/g, "’")
-        .replace(/&lsquo;|&#8216;/g, "‘");
+    return (
+        text
+            .replace(/&amp;|&#038;/g, "&")
+            // eslint-disable-next-line quotes
+            .replace(/&quot;|&#034;/g, '"')
+            .replace(/&apos;|&#039;/g, "'")
+            .replace(/&lt;|&#060;/g, "<")
+            .replace(/&gt;|&#062;/g, ">")
+            .replace(/&nbsp;|&#160;|&shy;|&#173;/g, " ")
+            .replace(/&rsquo;|&#8217;/g, "’")
+            .replace(/&lsquo;|&#8216;/g, "‘")
+    );
 };
 
 export const convertApiData = (data) => {
     return data.map((el) => {
-        const newElement = el;
-        const index = Math.floor(
-            Math.random() * newElement?.incorrect_answers.length
+        const correctVariant = Math.floor(
+            Math.random() * el?.incorrect_answers.length
         );
-        newElement.question = escapeHtml(newElement?.question);
-
-        newElement.incorrect_answers = insert(
+        const tempVariants = insert(
             el?.incorrect_answers,
-            index,
+            correctVariant,
             el.correct_answer
         ).map((el) => el.replace(/[^a-zA-Z0-9 ]/g, ""));
-        newElement.correct = index;
-        return el;
+
+        return {
+            title: escapeHtml(el?.question),
+            variants: tempVariants,
+            correctVariant: correctVariant,
+            category: el?.category,
+            difficulty: el?.difficulty,
+            type: el?.type,
+        };
     });
 };
 
@@ -49,4 +56,21 @@ export const converApiCategories = (data) => {
         };
     });
     return tempCategories.sort((a, b) => -a.group.localeCompare(b.group));
+};
+
+export const getDuration = (date1, date2) => {
+    return Math.abs(date1 - date2);
+};
+
+export const formatTime = (milliseconds) => {
+    const seconds = Math.floor((milliseconds / 1000) % 60);
+    const minutes = Math.floor((milliseconds / 1000 / 60) % 60);
+    const hours = Math.floor((milliseconds / 1000 / 60 / 60) % 24);
+    return [
+        hours ? hours.toString().padStart(2, "0") : null,
+        minutes.toString().padStart(2, "0"),
+        seconds.toString().padStart(2, "0"),
+    ]
+        .filter((el) => el !== null)
+        .join(":");
 };

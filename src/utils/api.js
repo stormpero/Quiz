@@ -7,5 +7,5 @@ export const getQuestions = (amount, difficulty, category) => {
 };
 
 export const getCategoryList = () => {
-    return axios.get(`https://opentdb.com/api_category.php`);
+    return axios.get("https://opentdb.com/api_category.php");
 };
