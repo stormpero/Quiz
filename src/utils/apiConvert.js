@@ -1,12 +1,3 @@
-const insert = (arr, index, newItem) => [
-    // part of the array before the specified index
-    ...arr.slice(0, index),
-    // inserted item
-    newItem,
-    // part of the array after the specified index
-    ...arr.slice(index),
-];
-
 const escapeHtml = (text) => {
     return (
         text
@@ -22,17 +13,17 @@ const escapeHtml = (text) => {
     );
 };
 
+
 export const convertApiData = (data) => {
     return data.map((el) => {
         const correctVariant = Math.floor(
             Math.random() * el?.incorrect_answers.length
         );
-        const tempVariants = insert(
-            el?.incorrect_answers,
-            correctVariant,
-            el.correct_answer
-        ).map((el) => el.replace(/[^a-zA-Z0-9 ]/g, ""));
 
+        el?.incorrect_answers.splice(correctVariant, 0, el.correct_answer);
+        const tempVariants = el?.incorrect_answers.map((variant) =>
+            variant.replace(/[^a-zA-Z0-9 ]/g, "")
+        );
         return {
             title: escapeHtml(el?.question),
             variants: tempVariants,
@@ -45,17 +36,20 @@ export const convertApiData = (data) => {
 };
 
 export const converApiCategories = (data) => {
-    const tempCategories = data.map((el) => {
-        return {
+    console.log(data);
+    const tempCategories = [];
+    for (const el of data) {
+        const group = el.name.substring(0, el.name.indexOf(":"));
+        const title = el.name.substring(el.name.indexOf(":") + 1);
+        tempCategories.push({
             id: el.id,
-            title:
-                el.name.indexOf(":") + 1
-                    ? el.name.split(":")[1].trim()
-                    : el.name,
-            group: el.name.indexOf(":") + 1 ? el.name.split(":")[0] : "General",
-        };
-    });
-    return tempCategories.sort((a, b) => -a.group.localeCompare(b.group));
+            title: title ? title.trim() : el.name,
+            group: group ? group : "General",
+        });
+    }
+    tempCategories.sort((a, b) => (a.group > b.group ? -1 : 1));
+    console.log(tempCategories);
+    return tempCategories;
 };
 
 export const getDuration = (date1, date2) => {

@@ -1,9 +1,7 @@
-import React from "react";
-import MailIcon from "@mui/icons-material/Mail";
-import QuizIcon from "@mui/icons-material/Quiz";
-import HistoryIcon from "@mui/icons-material/History";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import PeopleIcon from "@mui/icons-material/People";
+import HistoryIcon from "@mui/icons-material/History";
+import QuizIcon from "@mui/icons-material/Quiz";
 import {
     Divider,
     List,
@@ -11,33 +9,47 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    Toolbar,
+    Tab,
+    Tabs,
     Typography,
 } from "@mui/material";
+import React, { useEffect, useState } from "react";
+
+import { Link as RouterLink } from "react-router-dom";
+
+import { LinkTab } from "./LinkTab";
 
 const menu_first = [
     {
         text: "Start Quiz",
         icon: <QuizIcon />,
+        url: "/",
     },
     {
         text: "My Quizzes",
         icon: <ListAltIcon />,
+        url: "myquizzes",
     },
     {
         text: "History",
         icon: <HistoryIcon />,
+        url: "history",
     },
-];
-
-const menu_second = [
     {
         text: "People",
         icon: <PeopleIcon />,
+        url: "/people",
     },
 ];
 
 export const MyDrawer = () => {
+    const [value, setValue] = useState(false);
+
+    const handleChange = (event, newValue) => {
+        console.log(newValue);
+        setValue(newValue);
+    };
+
     return (
         <>
             <Typography
@@ -57,25 +69,39 @@ export const MyDrawer = () => {
                 Quiz
             </Typography>
             <Divider />
-            <List>
-                {menu_first.map((item) => (
-                    <ListItem key={item.text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>{item.icon}</ListItemIcon>
-                            <ListItemText primary={item.text} />
-                        </ListItemButton>
-                    </ListItem>
+            <Tabs
+                value={value}
+                onChange={handleChange}
+                orientation="vertical"
+                variant="scrollable"
+                aria-label="Quiz Vertical tabs"
+                sx={{
+                    borderRight: 1,
+                    borderColor: "divider",
+                    ["& .MuiTabs-indicator"]: {
+                        width: "3px"
+                    },
+                }}
+            >
+                {menu_first.map((item, index) => (
+                    <Tab
+                        id={`nav-tab-${index}`}
+                        key={item.text}
+                        label={item.text}
+                        component={RouterLink}
+                        to={item.url}
+                        icon={item.icon}
+                        iconPosition="start"
+                        sx={{
+                            ml: "10px",
+                            justifyContent: "flex-start",
+                            ["& .MuiTab-iconWrapper"]: {
+                                mr: "25px",
+                            },
+                        }}
+                    />
                 ))}
-            </List>
-            <Divider />
-            {menu_second.map((item) => (
-                <ListItem key={item.text} disablePadding>
-                    <ListItemButton>
-                        <ListItemIcon>{item.icon}</ListItemIcon>
-                        <ListItemText primary={item.text} />
-                    </ListItemButton>
-                </ListItem>
-            ))}
+            </Tabs>
         </>
     );
 };
