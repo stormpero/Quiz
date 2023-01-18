@@ -20,7 +20,7 @@ const quiz_difficulty = [
     },
 ];
 
-export const Start = ({ onClickStart }) => {
+export const ConfigureQuiz = ({ onClickStart }) => {
     const [categoryId, setCategoryId] = useState(null);
     const [difficulty, setDifficulty] = useState("easy");
     const [questionsNumber, setQuestionsNumber] = useState(5);
@@ -91,6 +91,6 @@ export const Start = ({ onClickStart }) => {
     );
 };
 
-Start.propTypes = {
+ConfigureQuiz.propTypes = {
     onClickStart: PropTypes.func,
 };

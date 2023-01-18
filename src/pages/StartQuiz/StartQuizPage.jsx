@@ -1,50 +1,48 @@
+import { Container } from "@mui/material";
 import React, { useState } from "react";
-import { Box, CircularProgress, Container } from "@mui/material";
 
 import { Quiz } from "./components/Quiz";
-import { Start } from "./components/Start";
+import { ConfigureQuiz } from "./components/ConfigureQuiz";
 
 import { getQuestions } from "utils/api";
 import { convertApiData } from "utils/apiConvert";
+import { LoadingSpinner } from "./components/LoadingSpinner";
 
 export const StartQuizPage = () => {
     const [isQuiz, setIsQuiz] = useState(false);
     const [questionsList, setQuestionsList] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const onClickStart = (questionsNumber, categoryId, difficulty) => {
+    const fetchQuizData = async (questionsNumber, categoryId, difficulty) => {
         setLoading(true);
+        try {
+            const response = await getQuestions(
+                questionsNumber,
+                difficulty,
+                categoryId === null ? 9 : categoryId
+            );
+            const data = convertApiData(response.data.results);
+            setQuestionsList(data);
+            setIsQuiz(true);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        getQuestions(
-            questionsNumber,
-            difficulty,
-            categoryId === null ? 9 : categoryId
-        )
-            .then((response) => convertApiData(response.data.results))
-            .then((data) => setQuestionsList(data))
-            .then(() => setIsQuiz(true))
-            .catch(console.error)
-            .finally(() => setLoading(false));
+    const onClickStart = (questionsNumber, categoryId, difficulty) => {
+        fetchQuizData(questionsNumber, categoryId, difficulty);
     };
 
     return (
         <Container>
-            {!loading ? (
-                isQuiz ? (
-                    <Quiz questions={questionsList} />
-                ) : (
-                    <Start onClickStart={onClickStart} />
-                )
+            {loading ? (
+                <LoadingSpinner />
+            ) : isQuiz ? (
+                <Quiz questions={questionsList} />
             ) : (
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        textAlign: "center",
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
+                <ConfigureQuiz onClickStart={onClickStart} />
             )}
         </Container>
     );

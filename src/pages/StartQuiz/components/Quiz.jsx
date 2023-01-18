@@ -13,6 +13,8 @@ export const Quiz = ({ questions = [] }) => {
     const [step, setStep] = useState(0);
     const [questionsAnswers, setQuestionsAnswers] = useState([]);
     const [isEnd, setIsEnd] = useState(false);
+    const currQuestion = questions[step];
+    const percentage = Math.round((step / questions.length) * 100);
 
     const quizInfo = useRef({
         timestampStart: new Date(),
@@ -21,9 +23,6 @@ export const Quiz = ({ questions = [] }) => {
         correctCount: null,
         questions: [],
     });
-
-    const currQuestion = questions[step];
-    const percentage = Math.round((step / questions.length) * 100);
 
     const onClickVariant = (index) => {
         if (step + 1 === questions.length) {
