@@ -39,7 +39,7 @@ export const Start = ({ onClickStart }) => {
 
     return (
         <Box>
-            <Stack direction="row" spacing={2}>
+            <Stack spacing={2}>
                 <TextField
                     select
                     label="Difficulty"
@@ -80,11 +80,12 @@ export const Start = ({ onClickStart }) => {
             <Button
                 sx={{
                     mt: "10px",
+                    width: "100%"
                 }}
                 variant="contained"
                 onClick={handleOnClickBtn}
             >
-                Начать игру
+                Start Quiz
             </Button>
         </Box>
     );

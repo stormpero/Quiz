@@ -3,16 +3,18 @@ import { Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "./AppLayout";
 
-import { StartQuiz } from "pages/StartQuiz/StartQuiz";
+import { StartQuizPage } from "pages/StartQuiz/StartQuizPage";
 import { NotFoundPage } from "pages/NotFoundPage";
-import { MyQuizzes } from "pages/MyQuizzes/MyQuizzes";
+import { HistoryPage } from "pages/History/HistoryPage";
+import { SettingsPage } from "pages/Settings/SettingsPage";
 
 export const App = () => {
     return (
         <Routes>
             <Route path="/" element={<AppLayout />}>
-                <Route index element={<StartQuiz />} />
-                <Route path="myquizzes" element={<MyQuizzes />} />
+                <Route index element={<StartQuizPage />} />
+                <Route path="history" element={<HistoryPage />} />
+                <Route path="settings" element={<SettingsPage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Route>
         </Routes>

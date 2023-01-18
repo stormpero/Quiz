@@ -36,7 +36,6 @@ export const convertApiData = (data) => {
 };
 
 export const converApiCategories = (data) => {
-    console.log(data);
     const tempCategories = [];
     for (const el of data) {
         const group = el.name.substring(0, el.name.indexOf(":"));
@@ -48,7 +47,6 @@ export const converApiCategories = (data) => {
         });
     }
     tempCategories.sort((a, b) => (a.group > b.group ? -1 : 1));
-    console.log(tempCategories);
     return tempCategories;
 };
 

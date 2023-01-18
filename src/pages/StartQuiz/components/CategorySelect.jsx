@@ -44,7 +44,6 @@ export const CategorySelect = ({ setCategoryId }) => {
             id="asynchronous-demo"
             value={category}
             onChange={onChangeCategorySelect}
-            sx={{ width: 300 }}
             open={openCategorySelect}
             onOpen={() => {
                 setOpenCategorySelect(true);
