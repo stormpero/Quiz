@@ -3,7 +3,8 @@ import DangerousOutlinedIcon from "@mui/icons-material/DangerousOutlined";
 import {
     Box,
     List,
-    ListItem, ListItemIcon,
+    ListItem,
+    ListItemIcon,
     ListItemText,
     Typography
 } from "@mui/material";
@@ -11,9 +12,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import { formatTime } from "utils/apiConvert";
 
+
 export const Result = ({ quizInfo }) => {
     const { correctCount, duration, questions } = quizInfo;
-    console.log(questions);
     const percent = Math.floor((correctCount * 100) / questions.length);
 
     return (

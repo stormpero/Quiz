@@ -7,6 +7,7 @@ import { Question } from "./Question";
 import { Result } from "./Result";
 import { useRef } from "react";
 import { getDuration } from "utils/apiConvert";
+import { quizzes } from "storage";
 
 export const Quiz = ({ questions = [] }) => {
     console.log("Рендерюсь");
@@ -43,7 +44,7 @@ export const Quiz = ({ questions = [] }) => {
                 (prev, value) => (value.isCorrect ? prev + 1 : prev),
                 0
             );
-
+            quizzes.saveQuiz(quizInfo.current);
             setIsEnd(true);
         }
         setQuestionsAnswers((prevState) => [
