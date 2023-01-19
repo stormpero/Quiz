@@ -1,14 +1,5 @@
-import {
-    Box,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Typography,
-} from "@mui/material";
-import PropTypes from "prop-types";
 import React from "react";
-import { formatTime } from "utils/apiConvert";
+import PropTypes from "prop-types";
 import { ResultInfo } from "./ResultInfo";
 import { ResultQuestions } from "./ResultQuestions";
 
@@ -16,7 +7,7 @@ export const Result = ({ quizInfo }) => {
     return (
         <>
             <ResultInfo quizInfo={quizInfo} />
-            <ResultQuestions questions={quizInfo.questions}/>
+            <ResultQuestions questions={quizInfo.questions} />
         </>
     );
 };

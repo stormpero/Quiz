@@ -6,14 +6,18 @@ import {
     AccordionSummary,
     Typography,
     AccordionDetails,
+    useTheme,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ResultQuestions } from "pages/StartQuiz/components/Result/ResultQuestions";
 import { formatDate, formatTime } from "utils/apiConvert";
 import { Stack } from "@mui/system";
 import { LoadingSpinner } from "pages/StartQuiz/components/LoadingSpinner";
+import { useSettings } from "app/MyThemeProvider/SettingsContext";
 
 export const HistoryPage = () => {
+    const theme = useTheme();
+
     const [quizzesList, setQuizzesList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -40,6 +44,10 @@ export const HistoryPage = () => {
                         key={quiz.id}
                         expanded={expanded === `panel${index}`}
                         onChange={handleChange(`panel${index}`)}
+                        sx={{
+                            backgroundColor: theme.palette.secondary.main,
+                        }}
+                        disableGutters
                     >
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}

@@ -21,7 +21,7 @@ export const Question = ({ title, variants = [], onClickVariant }) => {
             <List>
                 {variants.map((q, index) => (
                     <ListItemButton
-                        key={q}
+                        key={q + new Date()}
                         onClick={() => onClickVariant(index)}
                     >
                         <ListItemText primary={q} />

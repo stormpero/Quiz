@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import uniqid from "uniqid";
 
-import { Box, LinearProgress } from "@mui/material";
+import { Box, LinearProgress, useTheme } from "@mui/material";
 import { linearProgressClasses } from "@mui/material/LinearProgress";
 import { Question } from "./Question";
 import { Result } from "./Result/Result";
@@ -12,6 +12,8 @@ import { getDuration } from "utils/apiConvert";
 import { quizzes } from "storage";
 
 export const Quiz = ({ questions = [] }) => {
+    const theme = useTheme();
+    
     const [step, setStep] = useState(0);
     const [isEnd, setIsEnd] = useState(false);
     const currQuestion = questions[step];
@@ -65,7 +67,7 @@ export const Quiz = ({ questions = [] }) => {
                             borderRadius: 5,
                             [`& .${linearProgressClasses.bar}`]: {
                                 borderRadius: 5,
-                                backgroundColor: "#1a90ff",
+                                backgroundColor: theme.palette.background,
                             },
                         }}
                     />

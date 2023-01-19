@@ -7,11 +7,13 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    useTheme,
 } from "@mui/material";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import DangerousOutlinedIcon from "@mui/icons-material/DangerousOutlined";
 
 export const ResultQuestions = ({ questions }) => {
+    const theme = useTheme();
     return (
         <>
             {questions.map((question, index) => (
@@ -21,7 +23,9 @@ export const ResultQuestions = ({ questions }) => {
                         marginTop: "10px",
                         padding: "15px",
                         borderLeft: `3px solid ${
-                            question.isCorrect ? "green" : "red"
+                            question.isCorrect
+                                ? theme.palette.success.main
+                                : theme.palette.error.main
                         }`,
                     }}
                 >
@@ -39,7 +43,8 @@ export const ResultQuestions = ({ questions }) => {
                                     {question.correctVariant === index && (
                                         <CheckCircleOutlinedIcon
                                             sx={{
-                                                color: "green",
+                                                color: theme.palette.success
+                                                    .main,
                                             }}
                                         />
                                     )}
@@ -47,7 +52,8 @@ export const ResultQuestions = ({ questions }) => {
                                         question.chosenVariant === index && (
                                             <DangerousOutlinedIcon
                                                 sx={{
-                                                    color: "red",
+                                                    color: theme.palette.error
+                                                        .main,
                                                 }}
                                             />
                                         )}

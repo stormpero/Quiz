@@ -1,7 +1,7 @@
 import HistoryIcon from "@mui/icons-material/History";
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
 import QuizIcon from "@mui/icons-material/Quiz";
-import { Container, Tab, Tabs } from "@mui/material";
+import { Container, Tab, Tabs, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
@@ -27,6 +27,7 @@ const menu_first = [
 ];
 
 export const AppNavBar = () => {
+    const theme = useTheme();
     const location = useLocation();
     const [value, setValue] = useState(
         menu_first.find((el) => el.url === location.pathname).id
@@ -40,7 +41,7 @@ export const AppNavBar = () => {
         <Container
             sx={{
                 borderRadius: "0px 0px 30px 30px",
-                background: "white",
+                backgroundColor: theme.palette.secondary.main,
             }}
         >
             <Tabs

@@ -1,22 +1,17 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
 
-import { AppLayout } from "./AppLayout";
-
-import { StartQuizPage } from "pages/StartQuiz/StartQuizPage";
-import { NotFoundPage } from "pages/NotFoundPage";
-import { HistoryPage } from "pages/History/HistoryPage";
-import { SettingsPage } from "pages/Settings/SettingsPage";
+import { MyThemeProvider } from "./MyThemeProvider/MyThemeProvider";
+import { AppRoutes } from "./AppRoutes";
 
 export const App = () => {
     return (
-        <Routes>
-            <Route path="/" element={<AppLayout />}>
-                <Route index element={<StartQuizPage />} />
-                <Route path="history" element={<HistoryPage />} />
-                <Route path="settings" element={<SettingsPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-            </Route>
-        </Routes>
+        <BrowserRouter>
+            <MyThemeProvider>
+                <CssBaseline />
+                <AppRoutes />
+            </MyThemeProvider>
+        </BrowserRouter>
     );
 };

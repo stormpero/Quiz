@@ -1,12 +1,12 @@
 import React from "react";
-import { Box, Container } from "@mui/material";
+import { Box, Container, useTheme } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import { AppNavBar } from "./AppNavBar";
 
-import "./AppLayout.css";
-
 export const AppLayout = () => {
+    const theme = useTheme();
+
     return (
         <Container
             sx={{ display: "flex", justifyContent: "center", width: "750px" }}
@@ -16,9 +16,9 @@ export const AppLayout = () => {
                 <Box
                     sx={{
                         mt: "20px",
-                        backgroundColor: "#fff",
+                        backgroundColor: theme.palette.secondary.main,
                         borderRadius: "30px",
-                        padding: "40px",                        
+                        padding: "40px",
                     }}
                 >
                     <Outlet />
