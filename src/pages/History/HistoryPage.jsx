@@ -8,15 +8,22 @@ import {
     AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { ResultQuestions } from "pages/StartQuiz/components/Result/ResultQuestions";
+import { formatDate, formatTime } from "utils/apiConvert";
+import { Stack } from "@mui/system";
+import { LoadingSpinner } from "pages/StartQuiz/components/LoadingSpinner";
 
 export const HistoryPage = () => {
     const [quizzesList, setQuizzesList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [expanded, setExpanded] = useState("");
 
     useEffect(() => {
-        const quizzesStorage = quizzes.getQuizzes();
+        setIsLoading(true);
+        const quizzesStorage = quizzes.getQuizzes().reverse();
         setQuizzesList(quizzesStorage);
+        setIsLoading(false);
     }, []);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -24,102 +31,72 @@ export const HistoryPage = () => {
     };
 
     return (
-        <div>
-            <Accordion
-                expanded={expanded === "panel1"}
-                onChange={handleChange("panel1")}
-            >
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                >
-                    <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                        General settings
-                    </Typography>
-                    <Typography sx={{ color: "text.secondary" }}>
-                        I am an accordion
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        Nulla facilisi. Phasellus sollicitudin nulla et quam
-                        mattis feugiat. Aliquam eget maximus est, id dignissim
-                        quam.
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion
-                expanded={expanded === "panel2"}
-                onChange={handleChange("panel2")}
-            >
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2bh-content"
-                    id="panel2bh-header"
-                >
-                    <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                        Users
-                    </Typography>
-                    <Typography sx={{ color: "text.secondary" }}>
-                        You are currently not an owner
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        Donec placerat, lectus sed mattis semper, neque lectus
-                        feugiat lectus, varius pulvinar diam eros in elit.
-                        Pellentesque convallis laoreet laoreet.
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion
-                expanded={expanded === "panel3"}
-                onChange={handleChange("panel3")}
-            >
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel3bh-content"
-                    id="panel3bh-header"
-                >
-                    <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                        Advanced settings
-                    </Typography>
-                    <Typography sx={{ color: "text.secondary" }}>
-                        Filtering has been entirely disabled for whole web
-                        server
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat
-                        nisl. Integer sit amet egestas eros, vitae egestas
-                        augue. Duis vel est augue.
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion
-                expanded={expanded === "panel4"}
-                onChange={handleChange("panel4")}
-            >
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel4bh-content"
-                    id="panel4bh-header"
-                >
-                    <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                        Personal data
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        Nunc vitae orci ultricies, auctor nunc in, volutpat
-                        nisl. Integer sit amet egestas eros, vitae egestas
-                        augue. Duis vel est augue.
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-        </div>
+        <>
+            {isLoading ? (
+                <LoadingSpinner />
+            ) : (
+                quizzesList.map((quiz, index) => (
+                    <Accordion
+                        key={quiz.id}
+                        expanded={expanded === `panel${index}`}
+                        onChange={handleChange(`panel${index}`)}
+                    >
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls={`panel${index}bh-content`}
+                            id={`panel${index}bh-header`}
+                        >
+                            <Typography
+                                variant="h6"
+                                sx={{ width: "100%" }}
+                                gutterBottom
+                            >
+                                00{index + 1} Quiz
+                                <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                >
+                                    {quiz.questions[0].difficulty} |{" "}
+                                    {quiz.questions[0].category}
+                                </Typography>
+                            </Typography>
+
+                            <Stack
+                                direction={"row"}
+                                gap={2}
+                                sx={{
+                                    width: "65%",
+                                    justifyContent: "flex-end",
+                                    alignItems: "center",
+                                    mr: "10px",
+                                }}
+                            >
+                                <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                >
+                                    {formatTime(quiz.duration)}
+                                </Typography>
+                                <Typography sx={{ color: "text.secondary" }}>
+                                    {formatDate(quiz.timestampStart)}
+                                </Typography>
+
+                                <Typography
+                                    variant="h6"
+                                    sx={{ color: "text.primary" }}
+                                >
+                                    {quiz.correctCount} /{" "}
+                                    {quiz.questions.length}
+                                </Typography>
+                            </Stack>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <ResultQuestions questions={quiz.questions} />
+                        </AccordionDetails>
+                    </Accordion>
+                ))
+            )}
+        </>
     );
 };
 

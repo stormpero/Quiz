@@ -13,7 +13,6 @@ const escapeHtml = (text) => {
     );
 };
 
-
 export const convertApiData = (data) => {
     return data.map((el) => {
         const correctVariant = Math.floor(
@@ -65,4 +64,13 @@ export const formatTime = (milliseconds) => {
     ]
         .filter((el) => el !== null)
         .join(":");
+};
+
+export const formatDate = (strDate) => {
+    const date = new Date(strDate);
+    return date.toLocaleString("ru", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+    });
 };

@@ -1,51 +1,19 @@
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import DangerousOutlinedIcon from "@mui/icons-material/DangerousOutlined";
+import React from "react";
+import PropTypes from "prop-types";
 import {
     Box,
+    Typography,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
-    Typography
 } from "@mui/material";
-import PropTypes from "prop-types";
-import React from "react";
-import { formatTime } from "utils/apiConvert";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import DangerousOutlinedIcon from "@mui/icons-material/DangerousOutlined";
 
-
-export const Result = ({ quizInfo }) => {
-    const { correctCount, duration, questions } = quizInfo;
-    const percent = Math.floor((correctCount * 100) / questions.length);
-
+export const ResultQuestions = ({ questions }) => {
     return (
         <>
-            <Box
-                sx={{
-                    textAlign: "center",
-                }}
-            >
-                <Typography variant="h3" component="h3">
-                    Результат
-                </Typography>
-                <Typography
-                    variant="h1"
-                    component="p"
-                    sx={{
-                        fontWeight: "400",
-                    }}
-                >
-                    {correctCount} / {questions.length}
-                </Typography>
-                <Typography variant="h5" component="p">
-                    {percent}% из 100%
-                </Typography>
-                <Typography variant="h4" component="p">
-                    Время прохождения
-                </Typography>
-                <Typography variant="h5" component="p">
-                    {formatTime(duration)}
-                </Typography>
-            </Box>
             {questions.map((question, index) => (
                 <Box
                     key={question.title}
@@ -94,6 +62,6 @@ export const Result = ({ quizInfo }) => {
     );
 };
 
-Result.propTypes = {
-    quizInfo: PropTypes.object.isRequired,
+ResultQuestions.propTypes = {
+    questions: PropTypes.array.isRequired,
 };

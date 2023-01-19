@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
+import uniqid from "uniqid";
 
 import { Box, LinearProgress } from "@mui/material";
 import { linearProgressClasses } from "@mui/material/LinearProgress";
 import { Question } from "./Question";
-import { Result } from "./Result";
+import { Result } from "./Result/Result";
 import { useRef } from "react";
 import { getDuration } from "utils/apiConvert";
 import { quizzes } from "storage";
@@ -16,6 +18,7 @@ export const Quiz = ({ questions = [] }) => {
     const percentage = Math.round((step / questions.length) * 100);
 
     const quizInfo = useRef({
+        id: uniqid("quiz-"),
         timestampStart: new Date(),
         timestampEnd: null,
         duration: null,
