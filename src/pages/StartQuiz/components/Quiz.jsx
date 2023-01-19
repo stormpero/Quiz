@@ -10,7 +10,6 @@ import { getDuration } from "utils/apiConvert";
 import { quizzes } from "storage";
 
 export const Quiz = ({ questions = [] }) => {
-    console.log("Рендерюсь");
     const [step, setStep] = useState(0);
     const [isEnd, setIsEnd] = useState(false);
     const currQuestion = questions[step];
@@ -39,10 +38,9 @@ export const Quiz = ({ questions = [] }) => {
                 quizInfo.current.timestampStart,
                 quizInfo.current.timestampEnd
             );
-            quizInfo.current.correctCount = quizInfo.current.questions.reduce(
-                (prev, value) => (value.isCorrect ? prev + 1 : prev),
-                0
-            );
+            quizInfo.current.correctCount = quizInfo.current.questions.filter(
+                (q) => q.isCorrect
+            ).length;
             quizzes.saveQuiz(quizInfo.current);
             setIsEnd(true);
         }
