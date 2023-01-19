@@ -5,21 +5,6 @@ import { Box, Button, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
 import { CategorySelect } from "./CategorySelect";
 
-const quiz_difficulty = [
-    {
-        value: "easy",
-        label: "Easy",
-    },
-    {
-        value: "medium",
-        label: "Medium",
-    },
-    {
-        value: "hard",
-        label: "Hard",
-    },
-];
-
 export const ConfigureQuiz = ({ onClickStart }) => {
     const [categoryId, setCategoryId] = useState(null);
     const [difficulty, setDifficulty] = useState("easy");
@@ -50,9 +35,9 @@ export const ConfigureQuiz = ({ onClickStart }) => {
                     onChange={onChangeDifficulty}
                     variant="outlined"
                 >
-                    {quiz_difficulty.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
+                    {["Easy", "Medium", "Hard"].map((option) => (
+                        <option key={option} value={option.toLocaleLowerCase()}>
+                            {option}
                         </option>
                     ))}
                 </TextField>
@@ -80,7 +65,7 @@ export const ConfigureQuiz = ({ onClickStart }) => {
             <Button
                 sx={{
                     mt: "10px",
-                    width: "100%"
+                    width: "100%",
                 }}
                 variant="contained"
                 onClick={handleOnClickBtn}

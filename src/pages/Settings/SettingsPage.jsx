@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { ToggleButtonGroup, ToggleButton, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import { useSettings } from "app/MyThemeProvider/SettingsContext";
-import { useEffect } from "react";
 
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import { Container } from "@mui/system";
 
 export const SettingsPage = () => {
     const settings = useSettings();

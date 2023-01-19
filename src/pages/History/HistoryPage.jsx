@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { quizzes } from "storage";
 import {
     Accordion,
+    AccordionDetails,
     AccordionSummary,
     Typography,
-    AccordionDetails,
     useTheme,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { ResultQuestions } from "pages/StartQuiz/components/Result/ResultQuestions";
-import { formatDate, formatTime } from "utils/apiConvert";
 import { Stack } from "@mui/system";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import { LoadingSpinner } from "pages/StartQuiz/components/LoadingSpinner";
-import { useSettings } from "app/MyThemeProvider/SettingsContext";
+import { ResultQuestions } from "pages/StartQuiz/components/Result/ResultQuestions";
+import { quizzes } from "storage";
+import { formatDate, formatTime } from "utils/apiConvert";
 
 export const HistoryPage = () => {
     const theme = useTheme();
@@ -59,7 +59,7 @@ export const HistoryPage = () => {
                                 sx={{ width: "100%" }}
                                 gutterBottom
                             >
-                                00{index + 1} Quiz
+                                Quiz {index + 1}
                                 <Typography
                                     variant="body2"
                                     color="textSecondary"
@@ -107,5 +107,3 @@ export const HistoryPage = () => {
         </>
     );
 };
-
-HistoryPage.propTypes = {};
