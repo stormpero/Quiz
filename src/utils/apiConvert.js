@@ -1,16 +1,25 @@
-const escapeHtml = (text) => {
-    return (
-        text
-            .replace(/&amp;|&#038;/g, "&")
-            // eslint-disable-next-line quotes
-            .replace(/&quot;|&#034;/g, '"')
-            .replace(/&apos;|&#039;/g, "'")
-            .replace(/&lt;|&#060;/g, "<")
-            .replace(/&gt;|&#062;/g, ">")
-            .replace(/&nbsp;|&#160;|&shy;|&#173;/g, " ")
-            .replace(/&rsquo;|&#8217;/g, "’")
-            .replace(/&lsquo;|&#8216;/g, "‘")
-    );
+const convertHTMLCodes = (str) => {
+    if (/&#\d+;/.test(str)) {
+        return str.replace(/&#(\d+);/g, (match, code) =>
+            String.fromCharCode(code)
+        );
+    }
+    const replacements = {
+        "&#x([0-9A-Fa-f]+);": (match, code) =>
+            String.fromCharCode(parseInt(code, 16)),
+        "&quot;": '"',
+        "&ldquo;": "“",
+        "&rdquo;": "”",
+        "&rsquo;": "’",
+        "&hellip;": "…",
+        "&amp;": "&",
+        "&lt;": "<",
+        "&gt;": ">",
+        "&apos;": "'",
+        "&shy;": "-",
+    };
+    const pattern = new RegExp(Object.keys(replacements).join("|"), "g");
+    return str.replace(pattern, (match) => replacements[match]);
 };
 
 export const convertApiData = (data) => {
@@ -21,10 +30,12 @@ export const convertApiData = (data) => {
 
         el?.incorrect_answers.splice(correctVariant, 0, el.correct_answer);
         const tempVariants = el?.incorrect_answers.map((variant) =>
-            variant.replace(/[^a-zA-Z0-9 ]/g, "")
+            convertHTMLCodes(variant)
         );
+        console.log(el?.question);
+        console.log(convertHTMLCodes(el?.question));
         return {
-            title: escapeHtml(el?.question),
+            title: convertHTMLCodes(el?.question),
             variants: tempVariants,
             correctVariant: correctVariant,
             category: el?.category,
