@@ -14,7 +14,7 @@ export const ResultInfo = ({ quizInfo }) => {
             }}
         >
             <Typography variant="h3" component="h3">
-                Результат
+                Result
             </Typography>
             <Typography
                 variant="h1"
@@ -26,10 +26,10 @@ export const ResultInfo = ({ quizInfo }) => {
                 {correctCount} / {questions.length}
             </Typography>
             <Typography variant="h5" component="p">
-                {percent}% из 100%
+                {percent}% of 100%
             </Typography>
             <Typography variant="h4" component="p">
-                Время прохождения
+                Passage time
             </Typography>
             <Typography variant="h5" component="p">
                 {formatTime(duration)}
