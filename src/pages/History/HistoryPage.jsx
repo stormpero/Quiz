@@ -73,7 +73,7 @@ export const HistoryPage = () => {
                                 direction={"row"}
                                 gap={2}
                                 sx={{
-                                    width: "65%",
+                                    width: "100%",
                                     justifyContent: "flex-end",
                                     alignItems: "center",
                                     mr: "10px",

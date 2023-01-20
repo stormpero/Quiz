@@ -8,11 +8,11 @@ export const getGlobalSytels = (mode) => ({
                       main: "#0F4C75",
                   },
                   secondary: {
-                      main: "#D6E4F0",
+                      main: "#E0FCFF",
                   },
                   background: {
-                      default: "#1E56A0",
-                      paper: "#D9FAFF",
+                      default: "#7098DA",
+                      paper: "#6EB6FF",
                   },
               }
             : {
