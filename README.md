@@ -6,7 +6,7 @@ The application also includes a dark and light mode, allowing you to customize y
 Additionally, you can select the number of questions and the specific topic of the test, making it easy to focus on the areas you need to improve the most. 
 Whether you're preparing for a certification exam or just looking to brush up on your knowledge, this application is the perfect tool to help you achieve your goals.  
 
-### <a href="" target="_blank">Play Quiz</a>
+### <a href="https://stormpero.github.io/Quiz/" target="_blank">Play Quiz</a>
 
 ---
 ## Technologies  
